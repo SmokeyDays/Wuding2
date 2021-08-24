@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="md5.js"></script>
+		<script src="https://code.jquery.com/jquery-1.11.1.js" rel="external nofollow" ></script>
+		<script>
+			
+			$(() => {
+				var socket = io();
+				$('#Register').submit(() => {
+					socket.emit('register req',{'UserName': $('#RegUserName').val(),'Password': hex_md5($('#RegPassword').val())});
+					return false;
+				});
+				socket.on('register suc',() => {
+					$('#messages').append($('<li>').text("[通知] 注册成功！"));
+				});
+				socket.on('register failed',(msg) => {
+					$('#messages').append($('<li>').text("[错误] 注册失败：" + msg));
+				});
+				$('#Login').submit(() => {
+					socket.emit('login req',{'UserName': $('#LogUserName').val(),'Password': hex_md5($('#LogPassword').val())});
+					return false;
+				});
+				socket.on('login suc',() => {
+					$('#messages').append($('<li>').text("[通知] 登录成功！"));
+				});
+				socket.on('login failed',(msg) => {
+					$('#messages').append($('<li>').text("[错误] 登录失败：" + msg));
+				});
+				$('#Exit').click(() => {
+					socket.emit('exit req');
+					return false;
+				});
+				socket.on('exit failed',(msg) => {
+					$('#messages').append($('<li>').text("[错误] 退出失败：" + msg));
+				});
+				socket.on('exit suc',(msg) => {
+					$('#messages').append($('<li>').text("[通知] 用户" + msg + "已退出"));
+				});
+				$('#ChangePassword').submit(() => {
+					socket.emit('changePassword req',{'OldPassword': $('#OldPassword').val(),'NewPassword': hex_md5($('#NewPassword').val())});
+					return false;
+				});
+				socket.on('changePassword suc',() => {
+					$('#messages').append($('<li>').text("[通知] 密码修改成功！"));
+				});
+				socket.on('changePassword failed',(msg) => {
+					$('#messages').append($('<li>').text("[错误] 密码修改失败：" + msg));
+				});
+			})
+		</script>
+		<div>socket test</div>
+		<div id='messages'>Record</div>
+		<form>enter:<br><input id = 'm' autocomplete="off"></input></form>
+		<form id='Register'>
+			<p>注册</p>
+			用户名: <input type="text" name="RegUserName" id="RegUserName"><br>
+			密码: <input type="password" name="RegPassword" id="RegPassword"><br>
+			<input type='submit' value='提交'>
+		</form>
+		<form id='Login'>
+			<p>登录</p>
+			用户名: <input type="text" name="LogUserName" id="LogUserName"><br>
+			密码: <input type="password" name="LogPassword" id="LogPassword"><br>
+			<input type='submit' value='提交'>
+		</form>
+		<form id='ChangePassword'>
+			<p>修改密码</p>
+			原密码: <input type="password" name="OldPassword" id="OldPassword"><br>
+			新密码: <input type="password" name="NewPassword" id="NewPassword"><br>
+			<input type='submit' value='提交'>
+		</form>
+		<div id='Exit'>退出</div>
+	</body>
+</html>

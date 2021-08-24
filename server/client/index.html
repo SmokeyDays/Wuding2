@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>REA</title>
+    <script src="source/react.development.js"></script>
+    <script src="source/react-dom.development.js"></script>
+    <script src="source/babel.min.js"></script>
+    <script src="source/md5.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+  </head>
+  <body>
+    <div id="loginBox"></div>
+    <script type="text/babel">
+      // import 'css/index.css'
+      const loginBoxStyle = {
+        width: "320px",
+        margin: "auto",
+        "backgroundColor": "#ffffff",
+        "borderRadius": "6px",
+        padding: "10px 0px",
+        "fontWeight": "bold",
+        color: "rgb(115,124,123)"
+      }
+      const loginInputStyle = {
+        width: "272px",
+        "fontSize": "24px",
+        "borderWidth": "3px",
+        "borderRadius": "6px",
+      }
+      const loginInputBoxStyle = {
+        width: "272px",
+        fontSize: "14px",
+        marginLeft: "19px",
+        marginRight: "19px",
+        padding: "10px 0px"
+      }
+      const loginLogoStyle = {
+        borderWidth: "3px",
+        borderRadius: "110px",
+        borderStyle: "solid",
+        borderColor: "#66ccff",
+        marginLeft: "47px",
+        marginRight: "47px"
+      }
+      const loginSubmitStyle = {
+        width: "100%",
+        borderWidth: "3px",
+        borderRadius: "6px",
+        backgroundColor: "blue",
+        color: "white",
+        testAlign: "center"
+      }
+    /*
+    表单类 ContentInput
+    传参：
+    inputType: text,password
+    inputPlaceholder: 占位符
+    inputValue: 初始值
+    updateStateProp: 改变时发生的事件
+    */
+      class ContentInput extends React.Component {
+        render() {
+          return  <div>
+                  <input style={loginInputStyle} type={this.props.inputType} placeholder={this.props.inputPlaceholder} value={this.props.inputValue} onChange={this.props.updateStateProp} />
+                  </div>;
+        }
+      }
+      class EnterUserName extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {value: ""};
+          this.handleChange = this.handleChange.bind(this);
+        }
+        handleChange(event) {
+          this.setState({value: event.target.value});
+        }
+        render() {
+          var value = this.state.value;
+          return <ContentInput inputType={"text"} inputPlaceholder={""} inputValue = {value} updateStateProp = {this.handleChange}></ContentInput>;
+
+        }
+      }
+
+      class EnterPassword extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {value: ""};
+          this.handleChange = this.handleChange.bind(this);
+        }
+        handleChange(event) {
+          this.setState({value: event.target.value});
+        }
+        render() {
+          var value = this.state.value;
+          return <ContentInput inputType={"password"} inputPlaceholder={""} inputValue = {value} updateStateProp = {this.handleChange}></ContentInput>;
+        }
+      }
+
+      class Title extends React.Component {
+        render() {
+          return <img src="/img/章鱼.jpg" width="220" height="220" style={loginLogoStyle}></img>
+        }
+      }
+
+      class LoginSubmit extends React.Component {
+        render() {
+          return <div class="loginSubmitClass" style={loginSubmitStyle}>提交</div>
+        }
+      }
+      
+      class LoginBox extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {hover: false};
+        }
+        hoverToggle = () => {
+          this.setState({hover: !this.state.hover});
+        }
+        render() {
+          var innerStyle;
+          if(this.state.hover){
+            innerStyle = {
+              "boxShadow": "4px 4px 20px #000000"
+            }
+          }else{
+            innerStyle = {
+              "boxShadow": "0px 0px 0px #000000"
+            }
+          }
+          return <div id="test" style={{...loginBoxStyle,...innerStyle}} onMouseEnter={this.hoverToggle} onMouseLeave={this.hoverToggle}>
+            <Title />
+            <div style={loginInputBoxStyle}>
+              <a>用户名: </a>
+              <EnterUserName />
+            </div>
+            <div style={loginInputBoxStyle}>
+              <a>密码: </a>
+              <EnterPassword />
+            </div>
+            <LoginSubmit />
+          </div>;
+        }
+      }
+
+      ReactDOM.render(
+        <LoginBox />
+        ,
+      	document.getElementById('loginBox')
+      );
+    </script>
+  </body>
+</html>
