@@ -8,3 +8,45 @@ body {
 /* .loginSubmitClass {
 	background: #2376b7;
 } */
+
+.loginBox {
+	width: 320px;
+	margin: auto;
+	background-color: #ffffff;
+	border-radius: 6px;
+	padding: 10px 0px;
+	font-weight: bold;
+	color: rgb(115,124,123)
+}
+.loginBox:hover {
+	box-shadow: 4px 4px 20px #000000;
+}
+.loginInput {
+	width: 272px;
+	font-size: 24px;
+	border-width: 3px;
+	border-radius: 6px;
+}
+.loginInputBox {
+	width: 272px;
+	font-size: 14px;
+	margin-left: 19px;
+	margin-right: 19px;
+	padding: 10px 0px
+}
+.loginTitle {
+	border-width: 3px;
+	border-radius: 110px;
+	border-style: solid;
+	border-color: #66ccff;
+	margin-left: 47px;
+	margin-right: 47px;
+}
+.loginSubmit {
+	width: 100%;
+	border-width: 3px;
+	border-radius: 6px;
+	background-color: blue;
+	color: white;
+	text-align: center;
+}

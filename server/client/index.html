@@ -13,44 +13,7 @@
     <div id="loginBox"></div>
     <script type="text/babel">
       // import 'css/index.css'
-      const loginBoxStyle = {
-        width: "320px",
-        margin: "auto",
-        "backgroundColor": "#ffffff",
-        "borderRadius": "6px",
-        padding: "10px 0px",
-        "fontWeight": "bold",
-        color: "rgb(115,124,123)"
-      }
-      const loginInputStyle = {
-        width: "272px",
-        "fontSize": "24px",
-        "borderWidth": "3px",
-        "borderRadius": "6px",
-      }
-      const loginInputBoxStyle = {
-        width: "272px",
-        fontSize: "14px",
-        marginLeft: "19px",
-        marginRight: "19px",
-        padding: "10px 0px"
-      }
-      const loginLogoStyle = {
-        borderWidth: "3px",
-        borderRadius: "110px",
-        borderStyle: "solid",
-        borderColor: "#66ccff",
-        marginLeft: "47px",
-        marginRight: "47px"
-      }
-      const loginSubmitStyle = {
-        width: "100%",
-        borderWidth: "3px",
-        borderRadius: "6px",
-        backgroundColor: "blue",
-        color: "white",
-        testAlign: "center"
-      }
+      
     /*
     表单类 ContentInput
     传参：
@@ -62,7 +25,7 @@
       class ContentInput extends React.Component {
         render() {
           return  <div>
-                  <input style={loginInputStyle} type={this.props.inputType} placeholder={this.props.inputPlaceholder} value={this.props.inputValue} onChange={this.props.updateStateProp} />
+                  <input className="loginInput" type={this.props.inputType} placeholder={this.props.inputPlaceholder} value={this.props.inputValue} onChange={this.props.updateStateProp} />
                   </div>;
         }
       }
@@ -99,42 +62,25 @@
 
       class Title extends React.Component {
         render() {
-          return <img src="/img/章鱼.jpg" width="220" height="220" style={loginLogoStyle}></img>
+          return <img className="loginTitle" src="/img/章鱼.jpg" width="220" height="220"></img>
         }
       }
 
       class LoginSubmit extends React.Component {
         render() {
-          return <div class="loginSubmitClass" style={loginSubmitStyle}>提交</div>
+          return <div className="loginSubmit">提交</div>
         }
       }
       
       class LoginBox extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = {hover: false};
-        }
-        hoverToggle = () => {
-          this.setState({hover: !this.state.hover});
-        }
         render() {
-          var innerStyle;
-          if(this.state.hover){
-            innerStyle = {
-              "boxShadow": "4px 4px 20px #000000"
-            }
-          }else{
-            innerStyle = {
-              "boxShadow": "0px 0px 0px #000000"
-            }
-          }
-          return <div id="test" style={{...loginBoxStyle,...innerStyle}} onMouseEnter={this.hoverToggle} onMouseLeave={this.hoverToggle}>
+          return <div className="loginBox">
             <Title />
-            <div style={loginInputBoxStyle}>
+            <div className="loginInputBox">
               <a>用户名: </a>
               <EnterUserName />
             </div>
-            <div style={loginInputBoxStyle}>
+            <div className="loginInputBox">
               <a>密码: </a>
               <EnterPassword />
             </div>
